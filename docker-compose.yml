@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: db
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+    volumes:
+      - ./mariaDB:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - qualco_assignment 
+
+  backend:
+    container_name: case-study
+    image: case-study
+    build: ./case-study
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - qualco_assignment 
+
+# TODO - For now..., ng serve
+# frontend:
+
+networks:
+  qualco_assignment:
