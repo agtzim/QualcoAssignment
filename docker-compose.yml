@@ -26,8 +26,16 @@ services:
     networks:
       - qualco_assignment 
 
-# TODO - For now..., ng serve
-# frontend:
+  frontend:
+    container_name: case-study-ui
+    image: case-study-ui
+    build: ./case-study-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+    networks:
+      - qualco_assignment
 
 networks:
   qualco_assignment:
